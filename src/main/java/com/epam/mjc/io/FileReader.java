@@ -6,6 +6,7 @@ import java.io.*;
 public class FileReader {
 
     public Profile getDataFromFile(File file) {
+
         String[] userTokens = ReadFileDataIntoString(file);
         return new Profile(userTokens[0],
                             Integer.parseInt(userTokens[1]),
