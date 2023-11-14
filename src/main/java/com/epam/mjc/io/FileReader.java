@@ -10,9 +10,9 @@ public class FileReader {
         this.file = file;
         String[] userTokens = ReadFileDataIntoString(file);
         return new Profile(userTokens[0],
-                           Integer.parseInt(userTokens[1]),
-                           userTokens[2],
-                           Long.parseLong(userTokens[3]));
+                            Integer.parseInt(userTokens[1]),
+                            userTokens[2],
+                            Long.parseLong(userTokens[3]));
     }
 
     public String[] ReadFileDataIntoString(File file){
@@ -24,12 +24,14 @@ public class FileReader {
             while ((ch = inputStream.read()) != -1) strBuilder.append((char)ch);
             rawData = strBuilder.toString();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FileReaderException("Unable to read data...", e);
         }
 
         String[] keyValuePairs = rawData.split("\n");
         String[] userProfileFields = new String[keyValuePairs.length];
-        for (int i = 0; i < userProfileFields.length; i++) userProfileFields[i] = keyValuePairs[i].split(": ")[1];
+        for (int i = 0; i < keyValuePairs.length; i++) {
+            userProfileFields[i] = keyValuePairs[i].split(": ")[1];
+        }
         return userProfileFields;
     }
 }
