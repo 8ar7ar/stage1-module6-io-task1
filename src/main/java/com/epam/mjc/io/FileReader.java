@@ -4,10 +4,8 @@ import java.io.*;
 
 
 public class FileReader {
-    public File file;
 
     public Profile getDataFromFile(File file) {
-        this.file = file;
         String[] userTokens = ReadFileDataIntoString(file);
         return new Profile(userTokens[0],
                             Integer.parseInt(userTokens[1]),
@@ -16,7 +14,6 @@ public class FileReader {
     }
 
     public String[] ReadFileDataIntoString(File file){
-
         StringBuilder strBuilder = new StringBuilder();
         String rawData;
         try (FileInputStream inputStream = new FileInputStream(file)) {
