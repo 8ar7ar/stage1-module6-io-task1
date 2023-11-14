@@ -9,19 +9,16 @@ public class FileReader {
     public Profile getDataFromFile(File file) {
         this.file = file;
         String[] userTokens = ReadFileDataIntoString(file);
-
-        String name = userTokens[0];
-        int age = Integer.parseInt(userTokens[1]);
-        String email = userTokens[2];
-        long phone = Long.parseLong(userTokens[3]);
-
-        return new Profile(name, age, email, phone);
+        return new Profile(userTokens[0],
+                           Integer.parseInt(userTokens[1]),
+                           userTokens[2],
+                           Long.parseLong(userTokens[3]));
     }
 
     public String[] ReadFileDataIntoString(File file){
 
         StringBuilder strBuilder = new StringBuilder();
-        String rawData = "";
+        String rawData;
         try (FileInputStream inputStream = new FileInputStream(file)) {
             int ch;
             while ((ch = inputStream.read()) != -1) strBuilder.append((char)ch);
@@ -32,9 +29,7 @@ public class FileReader {
 
         String[] keyValuePairs = rawData.split("\n");
         String[] userProfileFields = new String[keyValuePairs.length];
-        for (int i = 0; i < keyValuePairs.length; i++) {
-            userProfileFields[i] = keyValuePairs[i].split(": ")[1];
-        }
+        for (int i = 0; i < userProfileFields.length; i++) userProfileFields[i] = keyValuePairs[i].split(": ")[1];
         return userProfileFields;
     }
 }
